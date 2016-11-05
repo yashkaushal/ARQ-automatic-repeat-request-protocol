@@ -39,8 +39,11 @@ public class Sender : MonoBehaviour {
 	}
 
 	IEnumerator timeout(){
-		yield return new WaitForSeconds (5);
+		Debug.Log ("stARTED");
+		yield return new WaitForSeconds (10);
+
 		if (!acknowledged)
+			Debug.Log ("triggered");
 			SendMessage ();
 	}
 	void OnCollisionEnter(Collision ack){
@@ -49,14 +52,16 @@ public class Sender : MonoBehaviour {
 			num = ack.gameObject.GetComponent<dataframe> ().packetNum;
 
 			if (num == packetnumber) {
+				acknowledged = true;
+				StopAllCoroutines ();
 				packetnumber++;
 				ParcelPointer++;
 				if (stopper < ParcelArr.GetLength(0)-1) {
 					SendMessage ();
 					stopper++;
 				}
-				StopCoroutine (timeout ());
-				acknowledged = true;
+				Debug.Log ("stopped");
+
 			}
 			Destroy (ack.gameObject);
 		}
