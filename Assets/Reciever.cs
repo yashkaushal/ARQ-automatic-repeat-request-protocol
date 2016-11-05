@@ -44,8 +44,9 @@ public class Reciever : MonoBehaviour {
 
 	void SendACK(int packetnum){
 		GameObject shoot;
-		shoot = Instantiate (ack, transform.position+new Vector3(-1,1,0),ack.transform.rotation) as GameObject;
+		shoot = Instantiate (ack, transform.position+new Vector3(-1,0.5f,0),ack.transform.rotation) as GameObject;
 		shoot.name = "ack";
+		shoot.GetComponent<Renderer> ().material.color = Color.yellow;
 		shoot.GetComponent<dataframe> ().data = 'r';
 		shoot.GetComponent<dataframe> ().packetNum = packetnum;
 		shoot.GetComponent<Rigidbody>().AddForce(new Vector3(-5,0,0),ForceMode.VelocityChange);

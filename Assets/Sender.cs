@@ -29,8 +29,9 @@ public class Sender : MonoBehaviour {
 	void SendMessage()
 	{
 		GameObject shoot;
-		shoot = Instantiate (message, transform.position+new Vector3(1,0,0),message.transform.rotation) as GameObject;
+		shoot = Instantiate (message, transform.position+new Vector3(1,-0.5f,0),message.transform.rotation) as GameObject;
 		shoot.name = "Packet";
+		shoot.GetComponent<Renderer> ().material.color = Color.cyan;
 		shoot.GetComponent<dataframe> ().data = this.ParcelArr [this.ParcelPointer];
 		shoot.GetComponent<dataframe> ().packetNum = packetnumber;
 		shoot.GetComponent<Rigidbody>().AddForce(new Vector3(5,0,0),ForceMode.VelocityChange);
