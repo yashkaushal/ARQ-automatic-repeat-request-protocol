@@ -38,7 +38,7 @@ public class Reciever : MonoBehaviour {
 			{
 				parcelstring += recievedparcel[i];
 			}
-			RecievedData.text = "received data:"+parcelstring;
+			RecievedData.text = "Received Data:"+parcelstring;
 		}
 	}
 

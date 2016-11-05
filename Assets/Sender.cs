@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Sender : MonoBehaviour {
 
 
 	public GameObject message;
 
-	public static string Parcel = "hello world!";
-	int ParcelPointer = 0;
-	char[] ParcelArr = Parcel.ToCharArray();
-	int packetnumber = 0;
-	bool started =false;
-	bool acknowledged = false;
-	int stopper = 0;
+	public static string Parcel = "hello world!";	//string to be sent
+	int ParcelPointer = 0;	//pointer to current packet
+	char[] ParcelArr = Parcel.ToCharArray();	//list of packets
+	int packetnumber = 0;	//packet identification number
+	bool started =false;	//game initializer
+	bool acknowledged = false;	//timeout trigger
+	public Text TimeoutDisplay;
+	int timeouts =0;	//number of timeouts
+//	int stopper = 0;	
 
 	// Use this for initialization
 	void Start () {
@@ -41,11 +44,13 @@ public class Sender : MonoBehaviour {
 
 	IEnumerator timeout(){
 		Debug.Log ("stARTED");
-		yield return new WaitForSeconds (10);
+		yield return new WaitForSeconds (5);
 
-		if (!acknowledged)
+		if (!acknowledged) {
 			Debug.Log ("triggered");
 			SendMessage ();
+			TimeoutDisplay.text = "Packets Lost: "+ ++timeouts;
+		}
 	}
 	void OnCollisionEnter(Collision ack){
 		if (ack.gameObject.name == "ack") {
@@ -54,12 +59,12 @@ public class Sender : MonoBehaviour {
 
 			if (num == packetnumber) {
 				acknowledged = true;
-				StopAllCoroutines ();
+				StopAllCoroutines ();	//to stop timeout
 				packetnumber++;
 				ParcelPointer++;
-				if (stopper < ParcelArr.GetLength(0)-1) {
+				if (ParcelPointer < ParcelArr.GetLength(0)) {
 					SendMessage ();
-					stopper++;
+			//		stopper++;
 				}
 				Debug.Log ("stopped");
 
