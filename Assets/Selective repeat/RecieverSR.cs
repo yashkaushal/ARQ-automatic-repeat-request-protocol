@@ -14,6 +14,7 @@ public class RecieverSR : MonoBehaviour {
 	bool firstwindow = true;
 	int gotupto =0;
 	int previousNACK;
+	bool timeoutbool;
 //	int numcheck;	//to check for billboard, replace with to string later if necessary
 
 
@@ -70,6 +71,8 @@ public class RecieverSR : MonoBehaviour {
 				parcelstring += recievedparcel[i];
 			}
 			RecievedData.text = "Received Data:"+parcelstring;
+
+			timeoutbool = true;
 		}
 	}
 
@@ -87,6 +90,15 @@ public class RecieverSR : MonoBehaviour {
 		}
 	}
 
+	IEnumerator TimeOut(){
+		yield return new WaitForSeconds (5);
+		if (timeoutbool) {
+			timeoutbool = false;
+		} else if (timeoutbool) {
+			sendNACK (gotupto);
+		}
+
+	}
 
 	void SendACK(int packetnum){
 		GameObject shoot;
