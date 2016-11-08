@@ -63,7 +63,7 @@ public class SenderSR: MonoBehaviour {
 
 	IEnumerator timeout(){
 		Debug.Log ("stARTed");
-		yield return new WaitForSeconds (3);
+		yield return new WaitForSeconds (6);
 
 		if (!acknowledged) {
 			Debug.Log ("triggered");
