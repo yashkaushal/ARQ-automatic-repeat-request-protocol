@@ -23,6 +23,10 @@ public class Interference : MonoBehaviour {
 
 		//	this.transform.position = Camera.current.ScreenPointToRay (Input.mousePosition);
 		StartCoroutine(explode());
+
+		if(Input.GetKey(KeyCode.Q)){
+			UnityEngine.SceneManagement.SceneManager.LoadScene (0);
+		}
 	}
 
 	public float explosionForce = 4;
