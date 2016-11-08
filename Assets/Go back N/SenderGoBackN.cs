@@ -63,7 +63,7 @@ public class SenderGoBackN: MonoBehaviour {
 
 	IEnumerator timeout(){
 		Debug.Log ("stARTed");
-		yield return new WaitForSeconds (10);
+		yield return new WaitForSeconds (3);
 
 		if (!acknowledged) {
 			Debug.Log ("triggered");

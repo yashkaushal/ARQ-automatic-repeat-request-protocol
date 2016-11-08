@@ -11,6 +11,7 @@ public class RecieverGoBackN : MonoBehaviour {
 	public Text RecievedData;	//billboard
 	bool[] window = new bool[20]; //recieved list
 	bool firstwindow = true;
+	int previous = -1;
 //	int numcheck;	//to check for billboard, replace with to string later if necessary
 
 
@@ -30,6 +31,10 @@ public class RecieverGoBackN : MonoBehaviour {
 			//Debug.Log (data.gameObject.GetComponent<dataframe>().data);
 			num = data.gameObject.GetComponent<dataframe> ().packetNum;
 			recievedparcel[num]= data.gameObject.GetComponent<dataframe> ().data;
+			if (num != previous + 1) {
+				SendACK (num - 1, 'n');
+			}
+			previous = num;
 			window [num] = true;
 			Destroy (data.gameObject);
 			bool test = true;
@@ -58,15 +63,18 @@ public class RecieverGoBackN : MonoBehaviour {
 				parcelstring += recievedparcel[i];
 			}
 			RecievedData.text = "Received Data:"+parcelstring;
+
+
+
 		}
 	}
 
-	void SendACK(int packetnum){
+	void SendACK(int packetnum, char a = 'r'){
 		GameObject shoot;
 		shoot = Instantiate (ack, transform.position+new Vector3(-1,0.5f,0),ack.transform.rotation) as GameObject;
 		shoot.name = "ack";
 		shoot.GetComponent<Renderer> ().material.color = Color.yellow;
-		shoot.GetComponent<dataframe> ().data = 'r';
+		shoot.GetComponent<dataframe> ().data = a;
 		shoot.GetComponent<dataframe> ().packetNum = packetnum;
 		shoot.GetComponent<Rigidbody>().AddForce(new Vector3(-5,0,0),ForceMode.VelocityChange);
 
