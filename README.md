@@ -1,3 +1,3 @@
 # ARQ-automatic-repeat-request-protocol
 
-Stop-n-Wait, Go-Back-N and Selective-Repeat interactive demonstration using Unity3D
+Stop-n-Wait, Go-Back-N and Selective-Repeat interactive Simulation using Unity3D
